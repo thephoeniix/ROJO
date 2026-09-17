@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#15161a;
-    --bg-2:#1c1e22;
+    --bg:#07111f;
+    --bg-2:#0d1724;
     --paper:#f6f3eb;
     --paper-2:#ffffff;
     --ink:#1c1b18;
@@ -86,14 +86,14 @@
     background:linear-gradient(90deg, transparent, var(--red) 20%, var(--red) 80%, transparent);
   }
   .util{
-    background:var(--paper);
-    border-bottom:1px solid var(--line);
+    background:var(--bg);
+    border-bottom:1px solid rgba(255,255,255,.1);
     padding:15px 28px;
     display:flex;
     align-items:center;
     justify-content:center;
     gap:26px;
-    color:var(--ink);
+    color:var(--on-dark);
     font-size:13px;
     flex-wrap:wrap;
   }
@@ -106,14 +106,14 @@
     width:14px;
     height:14px;
     flex:none;
-    color:var(--red);
+    color:var(--red-light);
   }
   .util-row a{ text-decoration:none; transition:color .12s ease; }
   .util-row a:hover{ color:var(--red); }
   .util-divider{
     width:1px;
     height:16px;
-    background:var(--line);
+    background:rgba(255,255,255,.16);
   }
 
   .wa-btn{
@@ -166,7 +166,7 @@
     margin:0 auto;
     padding:16px 28px;
     display:grid;
-    grid-template-columns: 1.6fr 1fr 1fr;
+    grid-template-columns: 1.6fr repeat(3, 1fr);
     gap:12px;
   }
   @media (max-width: 760px){
@@ -179,7 +179,19 @@
     .util{gap:14px; padding:13px 18px;}
     .strip-inner{padding:10px 18px;}
     main{padding:20px 16px 60px;}
-    #grid{gap:14px;}
+    #grid{
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:8px;
+    }
+    .card-body{padding:9px 8px 0;}
+    .card-top{display:block; margin-bottom:5px;}
+    .card-num{font-size:16px;}
+    .card-cat{display:inline-block; margin-top:3px; font-size:8px; padding:2px 6px;}
+    .card-name{font-size:10px; line-height:1.25;}
+    .card-compat{font-size:9px; line-height:1.25;}
+    .card-dims{font-size:8.5px; line-height:1.25;}
+    .card-ask{font-size:8px; padding:6px 4px; gap:3px;}
+    .card-ask svg{width:10px; height:10px;}
   }
   .field{
     display:flex;
@@ -228,6 +240,59 @@
     border-color:var(--red);
     box-shadow:0 0 0 3px rgba(198,42,28,.14);
   }
+  .multi-filter{position:relative;}
+  .multi-filter summary{
+    list-style:none;
+    cursor:pointer;
+    width:100%;
+    min-width:0;
+    min-height:41px;
+    padding:10px 32px 10px 12px;
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    border-radius:var(--radius-sm);
+    color:var(--ink);
+    box-shadow:var(--shadow-sm);
+    position:relative;
+  }
+  .multi-filter summary::-webkit-details-marker{display:none;}
+  .multi-filter summary::after{
+    content:"";
+    position:absolute;
+    right:12px;
+    top:50%;
+    width:8px;
+    height:8px;
+    border-right:2px solid var(--ink-soft);
+    border-bottom:2px solid var(--ink-soft);
+    transform:translateY(-65%) rotate(45deg);
+  }
+  .multi-filter[open] summary{border-color:#cfc6ac; border-radius:var(--radius-sm) var(--radius-sm) 0 0;}
+  .multi-filter[open] summary::after{transform:translateY(-25%) rotate(225deg);}
+  .filter-options{
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    z-index:8;
+    max-height:250px;
+    overflow-y:auto;
+    padding:6px;
+    background:var(--paper-2);
+    border:1px solid #cfc6ac;
+    border-top:0;
+    border-radius:0 0 var(--radius-sm) var(--radius-sm);
+    box-shadow:var(--shadow-md);
+  }
+  .filter-option{display:flex; align-items:center; gap:8px; padding:7px 6px; color:var(--ink); font-size:12px; cursor:pointer; border-radius:5px;}
+  .filter-option:hover{background:var(--paper);}
+  .filter-option input{accent-color:var(--red);}
+  @media (max-width: 480px){
+    .multi-filter summary{font-size:11px; padding:10px 28px 10px 9px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .multi-filter summary::after{right:10px; width:7px; height:7px;}
+    .filter-options{max-height:220px;}
+    .filter-option{gap:6px; padding:6px 4px; font-size:10px;}
+  }
 
   main{
     max-width:1200px;
@@ -238,6 +303,9 @@
     display:grid;
     grid-template-columns:repeat(auto-fill, minmax(235px, 1fr));
     gap:16px;
+  }
+  @media (max-width: 480px){
+    #grid{grid-template-columns:repeat(3, minmax(0, 1fr));}
   }
   .card{
     background:var(--paper);
@@ -359,6 +427,20 @@
   .card-ask svg{ width:13px; height:13px; flex:none; }
   .card-ask:hover{ background:var(--wa); border-color:var(--wa); color:#08210f; }
 
+  @media (max-width: 480px){
+    main{padding:20px 8px 60px;}
+    #grid{grid-template-columns:repeat(3, minmax(0, 1fr)); gap:8px;}
+    .card-body{padding:10px 9px 0;}
+    .card-top{display:block; margin-bottom:6px;}
+    .card-num{font-size:17px;}
+    .card-cat{display:inline-block; max-width:100%; margin-top:4px; font-size:8.5px; padding:3px 6px; overflow:hidden; text-overflow:ellipsis;}
+    .card-name{font-size:11px; line-height:1.3;}
+    .card-compat{font-size:10px; line-height:1.3;}
+    .card-dims{font-size:9.5px; line-height:1.3;}
+    .card-ask{font-size:9.5px; line-height:1.25; padding:7px 5px; gap:3px;}
+    .card-ask svg{width:11px; height:11px;}
+  }
+
   .empty{
     text-align:center;
     padding:70px 20px;
@@ -446,15 +528,28 @@
   <div class="controls">
     <div class="field">
       <small>BUSCAR POR NÚMERO, NOMBRE O MARCA</small>
-      <input type="search" id="q" placeholder="ej. 045, grapa puerta, Nissan..." autocomplete="off">
+      <input type="search" id="q" placeholder="ej. h 23mm, diametro 10mm..." autocomplete="off">
     </div>
     <div class="field">
       <small>CATEGORÍA</small>
-      <select id="cat"><option value="">Todas las categorías</option></select>
+      <details class="multi-filter" id="cat-filter">
+        <summary id="cat-label">Todas las categorías</summary>
+        <div class="filter-options" id="cat-options"></div>
+      </details>
     </div>
     <div class="field">
       <small>MARCA / VEHÍCULO</small>
-      <select id="brand"><option value="">Todas las marcas</option></select>
+      <details class="multi-filter" id="brand-filter">
+        <summary id="brand-label">Todas las marcas</summary>
+        <div class="filter-options" id="brand-options"></div>
+      </details>
+    </div>
+    <div class="field">
+      <small>TAMAÑO / MEDIDA</small>
+      <details class="multi-filter" id="size-filter">
+        <summary id="size-label">Todas las medidas</summary>
+        <div class="filter-options" id="size-options"></div>
+      </details>
     </div>
   </div>
 </div>
@@ -491,18 +586,57 @@ document.getElementById('wa-fab').href = waLink("Hola, quisiera información sob
 const grid = document.getElementById('grid');
 const empty = document.getElementById('empty');
 const qInput = document.getElementById('q');
-const catSel = document.getElementById('cat');
-const brandSel = document.getElementById('brand');
-
-CATS.forEach(c=>{
-  const o=document.createElement('option'); o.value=c; o.textContent=c; catSel.appendChild(o);
-});
-BRANDS.forEach(b=>{
-  const o=document.createElement('option'); o.value=b; o.textContent=b; brandSel.appendChild(o);
-});
+const catOptions = document.getElementById('cat-options');
+const brandOptions = document.getElementById('brand-options');
+const catLabel = document.getElementById('cat-label');
+const brandLabel = document.getElementById('brand-label');
+const sizeOptions = document.getElementById('size-options');
+const sizeLabel = document.getElementById('size-label');
+const selectedCats = new Set();
+const selectedBrands = new Set();
+const selectedSizes = new Set();
 
 function escapeHTML(s){
   return (s||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function productValues(key){
+  const values = DATA.flatMap(item=>key === 'brands' ? item.brands : [item.cat]);
+  return [...new Set(values.filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+}
+
+function setupMultiFilter(container, label, values, selected, emptyLabel, selectedLabel){
+  container.innerHTML = values.map(value=>`<label class="filter-option"><input type="checkbox" value="${escapeHTML(value)}"> <span>${escapeHTML(value)}</span></label>`).join('');
+  container.addEventListener('change', event=>{
+    if(!event.target.matches('input[type="checkbox"]')) return;
+    if(event.target.checked) selected.add(event.target.value);
+    else selected.delete(event.target.value);
+    label.textContent = selected.size ? `${selected.size} ${selectedLabel}` : emptyLabel;
+    render();
+  });
+}
+
+setupMultiFilter(catOptions, catLabel, productValues('cat'), selectedCats, 'Todas las categorías', 'categorías seleccionadas');
+setupMultiFilter(brandOptions, brandLabel, productValues('brands'), selectedBrands, 'Todas las marcas', 'marcas seleccionadas');
+
+const SIZE_TYPES = [
+  {key:'height', label:'Altura (h)', test:dims=>/\bh\b/.test(dims)},
+  {key:'diameter', label:'Diámetro', test:dims=>/diametro/.test(dims)},
+  {key:'symbol', label:'Ø', test:dims=>/\bo\b/.test(dims)},
+  {key:'length', label:'Largo (L)', test:dims=>/\bl\b/.test(dims)},
+  {key:'head', label:'Cabeza (Head)', test:dims=>/head/.test(dims)}
+].filter(type=>DATA.some(item=>type.test(normalizeSearchText(item.dims))));
+setupMultiFilter(sizeOptions, sizeLabel, SIZE_TYPES.map(type=>type.label), selectedSizes, 'Todas las medidas', 'medidas seleccionadas');
+
+function normalizeSearchText(value){
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/ø/g, ' o ')
+    .replace(/[^a-z0-9#./]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 const ACCENT_PALETTE = [
@@ -549,15 +683,18 @@ function cardHTML(it){
 }
 
 function render(){
-  const q = qInput.value.trim().toLowerCase();
-  const cat = catSel.value;
-  const brand = brandSel.value;
+  const q = normalizeSearchText(qInput.value);
 
   const filtered = DATA.filter(it=>{
-    if(cat && it.cat !== cat) return false;
-    if(brand && !it.brands.includes(brand)) return false;
+    if(selectedCats.size && !selectedCats.has(it.cat)) return false;
+    if(selectedBrands.size && !it.brands.some(brand=>selectedBrands.has(brand))) return false;
+    if(selectedSizes.size){
+      const dims = normalizeSearchText(it.dims);
+      const hasSelectedSize = SIZE_TYPES.some(type=>selectedSizes.has(type.label) && type.test(dims));
+      if(!hasSelectedSize) return false;
+    }
     if(q){
-      const hay = (it.num+' '+it.name+' '+it.compat+' '+it.dims+' '+it.brands.join(' ')).toLowerCase();
+      const hay = normalizeSearchText(it.num+' '+it.name+' '+it.compat+' '+it.dims+' '+it.brands.join(' '));
       if(!hay.includes(q)) return false;
     }
     return true;
@@ -575,8 +712,6 @@ function render(){
 
 let t;
 qInput.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(render, 80); });
-catSel.addEventListener('change', render);
-brandSel.addEventListener('change', render);
 
 render();
 </script>
