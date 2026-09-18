@@ -62,6 +62,7 @@
     width:250px;
     height:auto;
     display:block;
+    content:url("Logos/logo_primary_texto_blanco.png");
     margin:0 auto 18px;
     filter:drop-shadow(0 6px 18px rgba(0,0,0,.4));
   }
@@ -168,6 +169,20 @@
   }
   .choice-cta svg{ width:14px; height:14px; transition:transform .15s ease; }
   .choice:hover .choice-cta svg{ transform:translateX(3px); }
+  .payment-link{
+    display:inline-block;
+    margin-top:24px;
+    padding:12px 22px;
+    border:1px solid var(--red-light);
+    border-radius:999px;
+    color:#fff;
+    background:rgba(198,42,28,.18);
+    font-size:13px;
+    font-weight:700;
+    text-decoration:none;
+    transition:background .15s ease, transform .15s ease;
+  }
+  .payment-link:hover{background:var(--red); transform:translateY(-2px);}
 
   footer{
     width:100%;
@@ -237,6 +252,7 @@
       </span>
     </a>
   </div>
+  <a class="payment-link" href="metodo-pago.html">Método de pago</a>
 </div>
 
 <footer>
